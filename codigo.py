@@ -1,5 +1,15 @@
 carros = []
 
+def encontrar_carro(placa):
+    carro_encontrado = None
+
+    for carro in carros:
+        if carro["placa"] == placa:
+            carro_encontrado = carro
+            break 
+
+    return carro_encontrado
+
 def cadastrar_carro():
     placa = input("Digite a placa: ")
     cor = input("Digite a cor: ")
@@ -17,11 +27,27 @@ def cadastrar_carro():
     print("\nCarro cadastrado com êxito ")
     
 def listar_carros():
+    if not carros:
+        print("\nNenhum carro cadastrado ")
+        return
+
     print("\n-------------------- LISTAGEM DE CARROS --------------------")
     for carro in carros:
         print(f"Placa: {carro["placa"]} | Modelo: {carro["modelo"]} | Cor: {carro["cor"]} | Ano: {carro["ano"]}")
 
     print("\n------------------------------------------------------------")
+
+def deletar_caro():
+    placa = input("Digite a placa. do carro a ser deletado ")
+
+    carro_retornado = encontrar_carro(placa)
+
+    if carro_retornado == None:
+        print("\nNão foi encontrado um carro com essa placa")
+        return
+    
+    carros.remove(carro_retornado)
+    print("\nCarro deletado com êxito")
 
 def exibir_menu():
     print("\n---------- GERENCIADOR DE GARAGEM ----------")
@@ -43,7 +69,7 @@ while True:
     elif opcao_escolhida == "3":
         print("\nAinda vamos implementar")
     elif opcao_escolhida == "4":
-        print("\nAinda vamos implementar")
+        deletar_caro()
     elif opcao_escolhida == "5":
         print("\nEncerrando o gerenciador de garagem.  Até mais!")
         break 
