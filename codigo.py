@@ -37,7 +37,53 @@ def listar_carros():
 
     print("\n------------------------------------------------------------")
 
-def deletar_caro():
+def editar_carro():
+    placa = input("Digite a placa. do carro a ser editada: ")
+
+    carro_existente = encontrar_carro(placa)
+
+    if carro_existente == None: 
+        print("\nNão foi encontrado um carro com essa placa")
+        return
+
+    dicionario_atualizado = {
+        "placa": carro_existente["placa"],
+        "cor": carro_existente["cor"],
+        "modelo": carro_existente["modelo"],
+        "ano": carro_existente["ano"]
+    }
+
+    print("\nPressione Enter para manter o valor atual. ")
+
+    nova_placa = input(f"Nova placa (atual: {carro_existente["placa"]}): ")
+    if len(nova_placa) > 0:
+        if encontrar_carro(nova_placa) != None:
+            print("\nJá existe outro carro com essa placa. ")
+            return
+
+        dicionario_atualizado["placa"] = nova_placa
+
+    nova_cor = input(f"Nova cor (atual: {carro_existente["cor"]})")
+    if len(nova_cor) > 0:
+        dicionario_atualizado["cor"] = nova_cor
+
+    novo_modelo = input(f"Novo modelo. (atual: {carro_existente["modelo"]}): ")
+    if len(novo_modelo) > 0:
+            dicionario_atualizado["modelo"] = novo_modelo
+
+    novo_ano = input(f"Novo ano (atual: {carro_existente['ano']}): ")
+    if len(novo_ano) > 0:
+        dicionario_atualizado["ano"] = int(novo_ano)
+
+    carro_existente["placa"] = dicionario_atualizado["placa"]
+    carro_existente["cor"] = dicionario_atualizado["cor"]
+    carro_existente["modelo"] = dicionario_atualizado["modelo"]
+    carro_existente["ano"] = dicionario_atualizado["ano"]
+
+    print("\nCarro editado com êxito. ")    
+
+
+def deletar_carro():
     placa = input("Digite a placa. do carro a ser deletado ")
 
     carro_retornado = encontrar_carro(placa)
@@ -67,9 +113,9 @@ while True:
     elif opcao_escolhida == "2":
         listar_carros()
     elif opcao_escolhida == "3":
-        print("\nAinda vamos implementar")
+        editar_carro()
     elif opcao_escolhida == "4":
-        deletar_caro()
+        deletar_carro()
     elif opcao_escolhida == "5":
         print("\nEncerrando o gerenciador de garagem.  Até mais!")
         break 
